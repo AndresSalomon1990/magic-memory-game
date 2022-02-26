@@ -18,6 +18,7 @@ function App() {
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [allMatched, setAllMatched] = useState(false)
 
   // shuffle 12 cards
   const shuffleCards = () => {
@@ -27,6 +28,8 @@ function App() {
 
     setCards(shuffledCards);
     setTurns(0); // reset the turns
+    setFirstChoice(null);
+    setSecondChoice(null);
   };
 
   // handle a choice
@@ -65,6 +68,19 @@ function App() {
     }
   }, [firstChoice, secondChoice]);
 
+  // start new game automatically
+  useEffect(() => {
+    shuffleCards();
+  }, []);
+
+  // win the game
+  useEffect(() => {
+    if (cards.length > 0 && cards.every((card) => card.matched === true)) setAllMatched(true);
+    if (allMatched) {
+      alert(`You win the game in ${turns} turns!`);
+    }
+  }, [cards, allMatched]);
+
   return (
     <div className='App'>
       <h1>Magic Match</h1>
@@ -83,6 +99,7 @@ function App() {
           />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 }
