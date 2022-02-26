@@ -56,12 +56,12 @@ function App() {
       } else {
         // do something if the cards are not equal
       }
-      resetTurn();
+      setTimeout(() => {
+        resetTurn();
+      }, 1000);
     }
   }, [firstChoice, secondChoice]);
 
-  console.log(cards);
-  
   return (
     <div className='App'>
       <h1>Magic Match</h1>
@@ -69,7 +69,14 @@ function App() {
 
       <div className='card-grid'>
         {cards.map((card) => (
-          <SingleCard card={card} key={card.id} handleChoice={handleChoice} />
+          <SingleCard
+            card={card}
+            key={card.id}
+            handleChoice={handleChoice}
+            flipped={
+              card === firstChoice || card === secondChoice || card.matched
+            }
+          />
         ))}
       </div>
     </div>
