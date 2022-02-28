@@ -18,7 +18,6 @@ function App() {
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const [allMatched, setAllMatched] = useState(false)
 
   // shuffle 12 cards
   const shuffleCards = () => {
@@ -75,11 +74,10 @@ function App() {
 
   // win the game
   useEffect(() => {
-    if (cards.length > 0 && cards.every((card) => card.matched === true)) setAllMatched(true);
-    if (allMatched) {
-      alert(`You win the game in ${turns} turns!`);
+    if (cards.length > 0 && cards.every((card) => card.matched === true)) {
+      alert(`You win the game! Click New Game to play again.`);
     }
-  }, [cards, allMatched]);
+  }, [cards]);
 
   return (
     <div className='App'>
